@@ -54,3 +54,23 @@ ion-icon:hover{
     cursor: pointer;
 }
 
+li {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.delete{
+    height: 100%;
+    display: none;
+}
+
+svg{
+    height: 30px;
+    width: 30px;
+}
+
+.check{
+    height: 100%;
+    width: 30px;
+}
