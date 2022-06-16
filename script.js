@@ -34,7 +34,7 @@ function addTask(e){
     if(data != ""){
         list.innerHTML = ""
 
-        tasks.push({data: data, state: null})
+        tasks.push({data: data, state: 'check'})
 
 
         tasks.forEach((task)=>{
@@ -51,43 +51,31 @@ function addTask(e){
 }
 
 function remove(){
-    let click = document.querySelectorAll(".delete")
-    click.forEach(e => {
-        let element = e.parentElement
-        let icon = element.children[0]
-        let check = document.querySelector(".check").style.display
 
-        if(icon.style.display == "block"){
-            document.querySelector(".check").style = "display: block;"
-            icon.style.display = ""
+    for(li of [...list.children]){
+        if(li.children[0].style.display != "block"){
+            li.children[0].style.display = "block"
+            li.children[1].style.display = "none"
+
+            removeTask(li.children[0])
         }else{
-            document.querySelector(".check").style = "display: none;"
-            icon.style = "display: block; height: 30px; width: 30px;"
-
-            let trashs = document.querySelectorAll(".delete")
-            trashs = [...trashs]
-        
-            trashs.forEach((e)=>{
-                let icon = e
-                icon.addEventListener("click",()=>{
-                    removeTask(icon)}
-                )
-            })
+            li.children[0].style.display = "none"
+            li.children[1].style.display = "block"
         }
-    }); 
-
+    }
 }
 
-function removeTask(icon){
-    let element = icon.parentElement
+function removeTask(trash){
+    trash.addEventListener("click", ()=>{
+        trash.parentElement.style.display = "none"
 
-    element.style = "display: none;"
+        let text = trash.parentElement.children[2].innerHTML
 
-    tasks.forEach((task)=>{
-
-        if( task.data == element.children[2].innerHTML){
-            tasks.splice(element)
-        }
+        tasks.forEach( task =>{
+            if (task.data == text){
+                tasks.splice(tasks.indexOf(task),1)
+            }
+        })
     })
 
 }
@@ -101,6 +89,7 @@ function checked(e){
 function changeCheckbox(e){
 
     let SVG = e.target
+
     if(SVG.src.indexOf(SVGcheck) != -1){
         SVG.src = SVGchecked
         setState(SVG)
@@ -115,7 +104,7 @@ function changeCheckbox(e){
 function setState(SVG){
     
     let taskData = SVG.parentElement.children[2].innerHTML
-    let taskState = SVG.src
+
 
     tasks.forEach(task =>{
         if(taskData == task.data){

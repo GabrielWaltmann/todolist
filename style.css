@@ -51,6 +51,11 @@ nav{
     cursor: pointer;
     height: 45px;
     width: 45px;
+    transition: .4s;
+}
+
+#remove:hover, #add:hover{
+    transform: scale(1.2);
 }
 
 #list {
@@ -84,16 +89,16 @@ input:focus { outline: none; }
     
 }
 
-.delete{
-    display: none;
-}
-
 svg{
     height: 30px;
     width: 30px;
 }
 
 .check, .delete{
-    height: 100%;
+    height: 30px;
     width: 30px;
+}
+
+.delete{
+    display: none;
 }
