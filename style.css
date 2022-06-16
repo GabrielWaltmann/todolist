@@ -1,9 +1,20 @@
+:root{
+    --titleSize: 40px;
+    --contentSize: 20px;
+
+    --paddingMain: 5%;
+    --paddingList: 5% 5% 5% 0%;
+    --paddingTask: 30px;
+    --paddingtext: 10px;
+}
+
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     text-decoration: none;
-    list-style-type: none
+    list-style-type: none;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body{
@@ -23,7 +34,11 @@ main{
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    padding: 30px;
+    padding: var(--paddingMain);
+}
+
+h1{
+    font-size: var(--titleSize)
 }
 
 nav{
@@ -31,37 +46,45 @@ nav{
     position: absolute;
 }
 
-h1{
-    max-height: auto;
-    font-size: 30px;
+#remove, #add{
+    transform: scale(1.1);
+    cursor: pointer;
+    height: 45px;
+    width: 45px;
 }
 
 #list {
     display: flex;
     flex-direction: column;
+    padding: var(--paddingList);
+    gap: 10px;
 }
 
-input{
-    width: 50%;
-}
-
-ion-icon{
+input {
+    width: 90%;
     height: 30px;
-    width: 30px;
+    margin-left: var(--paddingTask);
+    padding-left: 40px;
+    border: none;
+    border-bottom: 1.5px solid #0000003d;
+    font-size: var(--contentSize);
 }
 
-ion-icon:hover{
-    cursor: pointer;
-}
+input:focus { outline: none; }
 
-li {
+#list li{
+    padding-left: var(--paddingTask);
     display: flex;
     align-items: center;
-    height: 30px;
+}
+
+#list li span{
+    font-size: var(--ntentSize);
+    padding-left: var(--paddingtext);
+    
 }
 
 .delete{
-    height: 100%;
     display: none;
 }
 
@@ -70,7 +93,7 @@ svg{
     width: 30px;
 }
 
-.check{
+.check, .delete{
     height: 100%;
     width: 30px;
 }

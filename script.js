@@ -8,50 +8,61 @@ const SVGchecked = "images/checked.svg"
 
 const SVGcheck = "images/check.svg"
 
-
 var tasks = []
 
-addButton.addEventListener("click", createTask)
+
+addButton.addEventListener("click", createInput)
 
 removeButton.addEventListener("click", remove)
 
 
-function createTask(){
+function createInput(){
 
     let input = document.createElement("input")
+
     input.setAttribute("type","text")
+
     input.setAttribute("onfocusout", "addTask(event)")
 
-    list.appendChild(input)
+    list.prepend(input)
 
 }
 
 function addTask(e){
     let data = e.target.value
-    tasks.push({data: data})
+    
+    if(data != ""){
+        list.innerHTML = ""
 
-    list.innerHTML = ""
-    for(let task of tasks){
-        list.innerHTML += `<li>
-        
-                            <ion-icon name="trash-outline" class="delete" ></ion-icon>
+        tasks.push({data: data, state: null})
 
-                            <img src="images/check.svg" class="check" onclick="checked(event)"></img>
 
-                            <span>${task.data}</span>
-                          </li>`
+        tasks.forEach((task)=>{
+            list.innerHTML += `<li>
+            
+                                <ion-icon name="trash-outline" class="delete" ></ion-icon>
+
+                                <img src="images/check.svg" class="check" onclick="checked(event)"></img>
+
+                                <span>${task.data}</span>
+                            </li>`
+        })
     }
 }
 
 function remove(){
-    document.querySelectorAll(".delete").forEach(e => {
+    let click = document.querySelectorAll(".delete")
+    click.forEach(e => {
         let element = e.parentElement
         let icon = element.children[0]
+        let check = document.querySelector(".check").style.display
 
         if(icon.style.display == "block"){
+            document.querySelector(".check").style = "display: block;"
             icon.style.display = ""
         }else{
-            icon.style.display = "block"
+            document.querySelector(".check").style = "display: none;"
+            icon.style = "display: block; height: 30px; width: 30px;"
 
             let trashs = document.querySelectorAll(".delete")
             trashs = [...trashs]
@@ -70,12 +81,15 @@ function remove(){
 function removeTask(icon){
     let element = icon.parentElement
 
+    element.style = "display: none;"
+
     tasks.forEach((task)=>{
-        if( task.data == element.children[1].innerHTML){
+
+        if( task.data == element.children[2].innerHTML){
             tasks.splice(element)
         }
     })
-    element.style = "display: none"
+
 }
 
 function checked(e){
@@ -89,11 +103,30 @@ function changeCheckbox(e){
     let SVG = e.target
     if(SVG.src.indexOf(SVGcheck) != -1){
         SVG.src = SVGchecked
+        setState(SVG)
         strikethroughText(SVG)
     }else if(SVG.src.indexOf(SVGchecked) != -1){
         SVG.src = SVGcheck
+        setState(SVG)
         strikethroughText(SVG)
     }
+}
+
+function setState(SVG){
+    
+    let taskData = SVG.parentElement.children[2].innerHTML
+    let taskState = SVG.src
+
+    tasks.forEach(task =>{
+        if(taskData == task.data){
+            if(SVG.src.indexOf(SVGcheck) != -1){
+                task.state = "check"
+            }else if(SVG.src.indexOf(SVGchecked) != -1){
+                task.state = "checked"
+            }    
+        }
+    })
+     
 }
 
 function strikethroughText(SVG){
