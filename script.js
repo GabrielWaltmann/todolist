@@ -10,6 +10,8 @@ const SVGcheck = "images/check.svg"
 
 var tasks = []
 
+var sendTask
+var sendTrash
 
 addButton.addEventListener("click", createInput)
 
@@ -22,32 +24,16 @@ function createInput(){
 
     input.setAttribute("type","text")
 
-    input.setAttribute("onfocusout", "addTask(event)")
+    input.setAttribute("onfocusout", "activeTask(event)")
 
     list.prepend(input)
 
 }
 
-function addTask(e){
-    let data = e.target.value
-    
-    if(data != ""){
-        list.innerHTML = ""
+function activeTask(e){
 
-        tasks.push({data: data, state: 'check'})
+    sendTask = e.target.value
 
-
-        tasks.forEach((task)=>{
-            list.innerHTML += `<li>
-            
-                                <ion-icon name="trash-outline" class="delete" ></ion-icon>
-
-                                <img src="images/check.svg" class="check" onclick="checked(event)"></img>
-
-                                <span>${task.data}</span>
-                            </li>`
-        })
-    }
 }
 
 function remove(){
@@ -67,15 +53,11 @@ function remove(){
 
 function removeTask(trash){
     trash.addEventListener("click", ()=>{
+
         trash.parentElement.style.display = "none"
 
-        let text = trash.parentElement.children[2].innerHTML
+        sendTrash = trash.parentElement.children[2].innerHTML
 
-        tasks.forEach( task =>{
-            if (task.data == text){
-                tasks.splice(tasks.indexOf(task),1)
-            }
-        })
     })
 
 }
