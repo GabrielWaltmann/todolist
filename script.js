@@ -1,21 +1,16 @@
+
 const list = document.querySelector("#list")
-
-const addButton = document.querySelector("#add")
-
-const removeButton = document.querySelector("#remove")
 
 const SVGchecked = "images/checked.svg"
 
 const SVGcheck = "images/check.svg"
 
-var tasks = []
+var showInScreen
 
-var sendTask
-var sendTrash
+var addToFirebase
 
-addButton.addEventListener("click", createInput)
+var removeToFirebase
 
-removeButton.addEventListener("click", remove)
 
 
 function createInput(){
@@ -24,19 +19,23 @@ function createInput(){
 
     input.setAttribute("type","text")
 
-    input.setAttribute("onfocusout", "activeTask(event)")
+    input.setAttribute("onfocusout", "addTask(event)")
 
     list.prepend(input)
 
 }
 
-function activeTask(e){
+function addTask(e){
 
-    sendTask = e.target.value
+    input = e.target
+
+    addToFirebase = input.value
+
+    input.remove()
 
 }
 
-function remove(){
+function deleteTask(){
 
     for(li of [...list.children]){
         if(li.children[0].style.display != "block"){
@@ -56,7 +55,7 @@ function removeTask(trash){
 
         trash.parentElement.style.display = "none"
 
-        sendTrash = trash.parentElement.children[2].innerHTML
+        removeToFirebase = trash.parentElement.children[2].innerHTML
 
     })
 
@@ -83,22 +82,6 @@ function changeCheckbox(e){
     }
 }
 
-function setState(SVG){
-    
-    let taskData = SVG.parentElement.children[2].innerHTML
-
-
-    tasks.forEach(task =>{
-        if(taskData == task.data){
-            if(SVG.src.indexOf(SVGcheck) != -1){
-                task.state = "check"
-            }else if(SVG.src.indexOf(SVGchecked) != -1){
-                task.state = "checked"
-            }    
-        }
-    })
-     
-}
 
 function strikethroughText(SVG){
 
@@ -111,3 +94,25 @@ function strikethroughText(SVG){
     }
 
 }
+
+function pushInScreen(content){
+
+    list.innerHTML += `<li>
+                                                                
+                          <ion-icon name="trash-outline" class="delete" ></ion-icon>
+
+                          <img src="images/check.svg" class="check" onclick="checked(event)"></img>
+
+                          <span>${content}</span>
+                        </li>`
+
+    showInScreen = undefined
+
+}
+
+setInterval( ()=>{
+    if(showInScreen != undefined){
+        pushInScreen(showInScreen)
+        console.log(showInScreen)
+    }
+} , 200);

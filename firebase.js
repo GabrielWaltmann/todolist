@@ -16,36 +16,35 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-const insetTask = await getDocs(collection(db, "todo"));
+getDatas()
 
-insetTask.forEach((doc) => {
-  list.innerHTML = ""
-  doc.data().data.forEach(task =>{
-    list.innerHTML += `<li>
-                                                              
-                        <ion-icon name="trash-outline" class="delete" ></ion-icon>
+async function getDatas(){
 
-                        <img src="images/check.svg" class="check" onclick="checked(event)"></img>
+  const data = await getDocs(collection(db, "todo"));
 
-                        <span>${task}</span>
-                      </li>`
-  tasks.push({data: task, state: 'check'})  })
-                      
-})
+  data.forEach((doc) => {
+    const array = doc.data().data
+    array.forEach(task =>{
+    pushInScreen(task)
+    })
+                        
+  })
 
-setInterval(() => {
-  if(sendTask != undefined && sendTask != ""){
-    console.log(sendTask)
-    addTaskToFirebase(sendTask)
-    sendTask = ''
+}
+
+setInterval( async () => {
+
+  if(addToFirebase != undefined && addToFirebase != ""){
+    addTaskToFirebase(addToFirebase)
+    showInScreen = addToFirebase
   }
-  if(sendTrash != undefined && sendTrash != ""){
-    console.log(sendTrash)
-    removeTaskToFirebase(sendTrash)
-    sendTrash = ""
+
+  if(removeToFirebase != undefined && removeToFirebase != ""){
+    removeTaskToFirebase(removeToFirebase)
   }
+  addToFirebase = ""
+  removeToFirebase = ""
 }, 500);
-
 
 async function addTaskToFirebase(task) { 
   await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
@@ -62,3 +61,4 @@ async function removeTaskToFirebase(trash) {
   .then(console.log())
   .catch(error => console.log(error))
 }
+
