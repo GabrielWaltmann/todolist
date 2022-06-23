@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
 
-import { getFirestore, collection, getDocs, arrayRemove, setDoc, doc, arrayUnion} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
+import { getFirestore, collection, getDocs, arrayRemove, setDoc, doc, arrayUnion, onSnapshot, query,where} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGSmgg0DRMyqij2D1kmaJaTpb7kUS2J20",
@@ -16,37 +17,32 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-getDatas()
 
-async function getDatas(){
+
+export async function getDatas(){
 
   const data = await getDocs(collection(db, "todo"));
 
+  const query = await query(collection(db, "todo"));
+  const snapshotInQuery = onSnapshot(query, (querySnapshot) => {
+  const array = [];
+  querySnapshot.forEach((doc) => {
+      array.push(doc.data());
+  });
+  console.log(array[0].data);
+});
+
   data.forEach((doc) => {
     const array = doc.data().data
-    array.forEach(task =>{
-    pushInScreen(task)
-    })
-                        
+/*     console.log(array)
+ */                     
   })
+
+
 
 }
 
-setInterval( async () => {
-
-  if(addToFirebase != undefined && addToFirebase != ""){
-    addTaskToFirebase(addToFirebase)
-    showInScreen = addToFirebase
-  }
-
-  if(removeToFirebase != undefined && removeToFirebase != ""){
-    removeTaskToFirebase(removeToFirebase)
-  }
-  addToFirebase = ""
-  removeToFirebase = ""
-}, 500);
-
-async function addTaskToFirebase(task) { 
+export async function addTaskToFirebase(task) { 
   await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
     data: arrayUnion(task),
   },{merge: true})

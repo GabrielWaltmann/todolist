@@ -1,3 +1,4 @@
+import {addTaskToFirebase, getDatas} from "./firebase.js";
 
 const list = document.querySelector("#list")
 
@@ -5,35 +6,73 @@ const SVGchecked = "images/checked.svg"
 
 const SVGcheck = "images/check.svg"
 
+const main = document.querySelector("main")
+
+const addInput = document.querySelector("#add")
+
 var showInScreen
 
 var addToFirebase
 
 var removeToFirebase
 
+main.addEventListener("change", updateList)
 
+addInput.addEventListener("click", createInput)
 
 function createInput(){
 
-    let input = document.createElement("input")
+    let inbox = `<input type="text">`
 
-    input.setAttribute("type","text")
+    main.innerHTML += inbox
 
-    input.setAttribute("onfocusout", "addTask(event)")
+    inbox = main.children[3]
 
-    list.prepend(input)
+    inbox.addEventListener('focusout', (e)=>{
+        sendTask(inbox.value)
+    })
+
+    inbox.addEventListener("keypress",(e)=>{
+        if (e.key == "Enter"){
+            sendTask(inbox.value)
+        } 
+    })
+}
+
+function sendTask(task){
+    if(task != "" && task != undefined){
+        console.log(task)
+        addTaskToFirebase(task)
+        getDatas()
+    }
+}
+
+/* 
+function sendTask(inbox){
+    let getTask = inbox.parentElement.children[3]
+    console.log(getTask.value)
 
 }
 
-function addTask(e){
+function checkKey(event){
 
-    input = e.target
+    if (event.key == "Enter"){
+        let task = event.target
+        addTask(task.value) 
+    } 
+}
+ */
+function updateList(){
+    getDatas()
+}
 
-    addToFirebase = input.value
+function addTask(task){
 
-    input.remove()
+    addToFirebase = task
 
 }
+
+
 
 function deleteTask(){
 
@@ -95,7 +134,8 @@ function strikethroughText(SVG){
 
 }
 
-function pushInScreen(content){
+function viewInScreen(content){
+    showInScreen = undefined
 
     list.innerHTML += `<li>
                                                                 
@@ -106,13 +146,9 @@ function pushInScreen(content){
                           <span>${content}</span>
                         </li>`
 
-    showInScreen = undefined
+    
 
 }
 
 setInterval( ()=>{
-    if(showInScreen != undefined){
-        pushInScreen(showInScreen)
-        console.log(showInScreen)
-    }
-} , 200);
+} , 500);
