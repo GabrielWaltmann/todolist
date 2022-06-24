@@ -1,6 +1,6 @@
-import {addTaskToFirebase, getDatas} from "./firebase.js";
+import {addTaskToFirebase, removeTaskFromFirebase} from "./firebase.js";
 
-const list = document.querySelector("#list")
+export let list = document.querySelector("#list")
 
 const SVGchecked = "images/checked.svg"
 
@@ -8,99 +8,106 @@ const SVGcheck = "images/check.svg"
 
 const main = document.querySelector("main")
 
-const addInput = document.querySelector("#add")
 
-var showInScreen
 
-var addToFirebase
+setInterval(()=>{
 
-var removeToFirebase
+    const addInput = document.querySelector("#add")
 
-main.addEventListener("change", updateList)
+    const removeTaskButton = document.querySelector("#remove")
 
-addInput.addEventListener("click", createInput)
+    removeTaskButton.addEventListener("click", ()=>{removeTask()})
 
-function createInput(){
+    addInput.addEventListener("click",()=>{
+        createInput()
+    })
 
+},1000)
+
+export function viewInScreen(array){
+    list = document.querySelector("#list")
+    list.innerHTML = ""
+    array.forEach(item =>{
+        list.innerHTML += `<li>
+                                                            
+                                <ion-icon name="trash-outline" class="delete" ></ion-icon>
+
+                                <img src="images/check.svg" class="check" ></img>
+
+                                <span>${item}</span>
+                         </li>`
+
+    })
+
+}
+
+function createInput(element){
     let inbox = `<input type="text">`
-
     main.innerHTML += inbox
 
     inbox = main.children[3]
 
     inbox.addEventListener('focusout', (e)=>{
         sendTask(inbox.value)
+        if(inbox != undefined){inbox.style.display = "none"}
     })
 
     inbox.addEventListener("keypress",(e)=>{
         if (e.key == "Enter"){
             sendTask(inbox.value)
-        } 
+            try{
+                inbox.remove()
+                console.log(addInput)
+            }catch(error){
+                console.log(addInput)
+            }
+        }
     })
+
+
 }
 
 function sendTask(task){
     if(task != "" && task != undefined){
-        console.log(task)
         addTaskToFirebase(task)
-        getDatas()
     }
 }
 
-/* 
-function sendTask(inbox){
-    let getTask = inbox.parentElement.children[3]
-    console.log(getTask.value)
+function removeTask(){
 
+    changeTrashCanIcon()
+
+    
 }
 
-function checkKey(event){
-
-    if (event.key == "Enter"){
-        let task = event.target
-        addTask(task.value) 
-    } 
-}
- */
-function updateList(){
-    getDatas()
-}
-
-function addTask(task){
-
-    addToFirebase = task
-
-}
+function changeTrashCanIcon(){
+    list = document.querySelector("#list")
+    let itens = [...list.children]
+    itens.forEach(item=>{
+        let trashCan = item.children[0]
+        let check = item.children[1]
 
 
+        if(trashCan.style.display != "block"){
 
-function deleteTask(){
+            trashCan.style.display = "block"
 
-    for(li of [...list.children]){
-        if(li.children[0].style.display != "block"){
-            li.children[0].style.display = "block"
-            li.children[1].style.display = "none"
+            check.style.display = "none"
 
-            removeTask(li.children[0])
+            trashCan.addEventListener("click", ()=>{
+                let text = item.children[2].innerText
+                removeTaskFromFirebase(text)
+            })
         }else{
-            li.children[0].style.display = "none"
-            li.children[1].style.display = "block"
+            trashCan.style.display = "none"
+            check.style.display = "block"
         }
-    }
-}
 
-function removeTask(trash){
-    trash.addEventListener("click", ()=>{
-
-        trash.parentElement.style.display = "none"
-
-        removeToFirebase = trash.parentElement.children[2].innerHTML
 
     })
-
 }
 
-function checked(e){
+/* function checked(e){
 
     changeCheckbox(e)
     
@@ -132,23 +139,4 @@ function strikethroughText(SVG){
         text.style = "text-decoration: none" 
     }
 
-}
-
-function viewInScreen(content){
-    showInScreen = undefined
-
-    list.innerHTML += `<li>
-                                                                
-                          <ion-icon name="trash-outline" class="delete" ></ion-icon>
-
-                          <img src="images/check.svg" class="check" onclick="checked(event)"></img>
-
-                          <span>${content}</span>
-                        </li>`
-
-    
-
-}
-
-setInterval( ()=>{
-} , 500);
+} */

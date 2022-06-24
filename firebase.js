@@ -1,7 +1,8 @@
+import {list, viewInScreen} from "./script.js";
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
 
 import { getFirestore, collection, getDocs, arrayRemove, setDoc, doc, arrayUnion, onSnapshot, query,where} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGSmgg0DRMyqij2D1kmaJaTpb7kUS2J20",
@@ -17,28 +18,14 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-
-
 export async function getDatas(){
 
-  const data = await getDocs(collection(db, "todo"));
-
-  const query = await query(collection(db, "todo"));
-  const snapshotInQuery = onSnapshot(query, (querySnapshot) => {
-  const array = [];
-  querySnapshot.forEach((doc) => {
-      array.push(doc.data());
+  await onSnapshot(collection(db, "todo"), (doc) => {
+    doc.forEach((object) => {
+      viewInScreen(object.data().data)
+    });
+  
   });
-  console.log(array[0].data);
-});
-
-  data.forEach((doc) => {
-    const array = doc.data().data
-/*     console.log(array)
- */                     
-  })
-
-
 
 }
 
@@ -50,7 +37,7 @@ export async function addTaskToFirebase(task) {
   .catch(error => console.log(error))
 }
 
-async function removeTaskToFirebase(trash) { 
+export async function removeTaskFromFirebase(trash) { 
   await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
     data: arrayRemove(trash),
   },{merge: true})
@@ -58,3 +45,4 @@ async function removeTaskToFirebase(trash) {
   .catch(error => console.log(error))
 }
 
+getDatas()
