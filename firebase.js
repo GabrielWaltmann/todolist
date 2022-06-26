@@ -1,8 +1,10 @@
-import {list, viewInScreen} from "./script.js";
+import {refreshScreen} from "./script.js";
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
 
 import { getFirestore, collection, getDocs, arrayRemove, setDoc, doc, arrayUnion, onSnapshot, query,where} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
+
+export let tasks = []
 
 const firebaseConfig = {
   apiKey: "AIzaSyDGSmgg0DRMyqij2D1kmaJaTpb7kUS2J20",
@@ -18,31 +20,22 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export async function getDatas(){
+export async function addTaskToFirebase(info, isChecked) {
+  console.log(info, isChecked) 
+  await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
+    task: arrayUnion({data: info, status: isChecked}),
+  },{merge: true})
+}
 
-  await onSnapshot(collection(db, "todo"), (doc) => {
-    doc.forEach((object) => {
-      viewInScreen(object.data().data)
-    });
-  
+export async function removeTaskFromFirebase(info, checked) { 
+  console.log(info, checked)
+  await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
+    task: arrayRemove({data: info, status: checked}),
+  },{merge: true})
+}
+
+const updateOnFirebase = onSnapshot(collection(db, "todo"), (doc) => {
+  doc.forEach(element => {
+    refreshScreen(element.data())
   });
-
-}
-
-export async function addTaskToFirebase(task) { 
-  await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
-    data: arrayUnion(task),
-  },{merge: true})
-  .then(console.log())
-  .catch(error => console.log(error))
-}
-
-export async function removeTaskFromFirebase(trash) { 
-  await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
-    data: arrayRemove(trash),
-  },{merge: true})
-  .then(console.log())
-  .catch(error => console.log(error))
-}
-
-getDatas()
+})

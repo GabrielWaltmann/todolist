@@ -46,7 +46,7 @@ nav{
     position: absolute;
 }
 
-#remove, #add{
+#removeTasks, #addInput{
     transform: scale(1.1);
     cursor: pointer;
     height: 45px;
@@ -54,7 +54,7 @@ nav{
     transition: .4s;
 }
 
-#remove:hover, #add:hover{
+#removeTasks:hover, #addInput:hover{
     transform: scale(1.2);
 }
 

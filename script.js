@@ -1,142 +1,125 @@
-import {addTaskToFirebase, removeTaskFromFirebase} from "./firebase.js";
+import {addTaskToFirebase, removeTaskFromFirebase,} from "./firebase.js";
 
-export let list = document.querySelector("#list")
+export const list = document.querySelector("#list")
+
+const container = document.querySelector("main")
 
 const SVGchecked = "images/checked.svg"
 
 const SVGcheck = "images/check.svg"
 
-const main = document.querySelector("main")
+const removeTasks = document.querySelector("#removeTasks")
+
+const addInput = document.querySelector("#addInput")
+
+addInput.addEventListener("click", createInput)
+
+removeTasks.addEventListener("click", addTrashs)
+
+export function refreshScreen(object){
+     list.innerHTML = ""
 
 
-
-setInterval(()=>{
-
-    const addInput = document.querySelector("#add")
-
-    const removeTaskButton = document.querySelector("#remove")
-
-    removeTaskButton.addEventListener("click", ()=>{removeTask()})
-
-    addInput.addEventListener("click",()=>{
-        createInput()
-    })
-
-},1000)
-
-export function viewInScreen(array){
-    list = document.querySelector("#list")
-    list.innerHTML = ""
-    array.forEach(item =>{
-        list.innerHTML += `<li>
-                                                            
+    object.task.forEach(task =>{
+        if(task.status == false){
+            list.innerHTML += `<li>
                                 <ion-icon name="trash-outline" class="delete" ></ion-icon>
 
-                                <img src="images/check.svg" class="check" ></img>
+                                <img src="images/check.svg" class="check"></img>
 
-                                <span>${item}</span>
-                         </li>`
+                                <span>${task.data}</span>
+                            </li>`
 
+        }
+        
+        else{
+            list.innerHTML += `<li>
+                                <ion-icon name="trash-outline" class="delete" ></ion-icon>
+
+                                <img src="images/checked.svg" class="check"></img>
+
+                                <span>${task.data}</span>
+                            </li>`
+        }
     })
-
 }
 
-function createInput(element){
-    let inbox = `<input type="text">`
-    main.innerHTML += inbox
+function addTrashs(){
+    let arrayTasks = [...list.children]
+    arrayTasks.forEach(li => {
+        let trashStyle = li.children[0].style
+        let checkStyle = li.children[1].style
 
-    inbox = main.children[3]
+        if(trashStyle.display == "" || trashStyle.display == "none"){
+            trashStyle.display = "block"
+            checkStyle.display = "none"
+            removeTask(li.children[0])
+        }else if(trashStyle.display == "block"){
+            trashStyle.display = "none"
+            checkStyle.display = "block"
+        }
 
-    inbox.addEventListener('focusout', (e)=>{
-        sendTask(inbox.value)
-        if(inbox != undefined){inbox.style.display = "none"}
+    })
+}
+
+function removeTask(trash){
+    trash.addEventListener("click", ()=>{
+
+        let info = [...trash.parentElement.children][2].innerHTML
+
+        let checked = isChecked([...trash.parentElement.children])
+
+        removeTaskFromFirebase(info, checked)
+    })
+}
+
+function isChecked(element){
+    if(element[1].src.indexOf(SVGchecked) == -1){
+        return false
+    }else{
+        return true
+    }
+}
+
+function createInput(){
+    let input = document.createElement("input")
+    input.setAttribute("type", "text")
+
+    list.append(input)
+
+    input = [...list.children][[...list.children].length -1]
+    sendTask(input)
+}
+
+function sendTask(input){
+
+    input.addEventListener('focusout', (e)=>{
+
+        inputHasValue(input.value)
+
+        input.style.display = "none"
+
+
+        input.value = ""
+
     })
 
-    inbox.addEventListener("keypress",(e)=>{
+    input.addEventListener("keypress",(e)=>{
         if (e.key == "Enter"){
-            sendTask(inbox.value)
-            try{
-                inbox.remove()
-                console.log(addInput)
-            }catch(error){
-                console.log(addInput)
-            }
+
+            inputHasValue(input.value)
+
+            input.style.display = "none"
+
+
+            input.value = ""
+
         }
     })
-
-
 }
 
-function sendTask(task){
-    if(task != "" && task != undefined){
-        addTaskToFirebase(task)
+function inputHasValue(value){
+    if(value != ""){
+        addTaskToFirebase(value, false)
     }
 }
-
-function removeTask(){
-
-    changeTrashCanIcon()
-
-    
-}
-
-function changeTrashCanIcon(){
-    list = document.querySelector("#list")
-    let itens = [...list.children]
-    itens.forEach(item=>{
-        let trashCan = item.children[0]
-        let check = item.children[1]
-
-
-        if(trashCan.style.display != "block"){
-
-            trashCan.style.display = "block"
-
-            check.style.display = "none"
-
-            trashCan.addEventListener("click", ()=>{
-                let text = item.children[2].innerText
-                removeTaskFromFirebase(text)
-            })
-        }else{
-            trashCan.style.display = "none"
-            check.style.display = "block"
-        }
-
-
-    })
-}
-
-/* function checked(e){
-
-    changeCheckbox(e)
-    
-}
-
-function changeCheckbox(e){
-
-    let SVG = e.target
-
-    if(SVG.src.indexOf(SVGcheck) != -1){
-        SVG.src = SVGchecked
-        setState(SVG)
-        strikethroughText(SVG)
-    }else if(SVG.src.indexOf(SVGchecked) != -1){
-        SVG.src = SVGcheck
-        setState(SVG)
-        strikethroughText(SVG)
-    }
-}
-
-
-function strikethroughText(SVG){
-
-    let text = SVG.parentElement.children[2]
-
-    if(SVG.src.indexOf(SVGchecked) != -1){
-        text.style = "text-decoration: line-through" 
-    }else if(SVG.src.indexOf(SVGcheck) != -1){
-        text.style = "text-decoration: none" 
-    }
-
-} */
