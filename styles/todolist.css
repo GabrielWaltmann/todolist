@@ -7,7 +7,7 @@
     --paddingTask: 30px;
     --paddingtext: 10px;
 }
-
+/* Global */
 *{
     box-sizing: border-box;
     padding: 0;
@@ -25,7 +25,7 @@ body{
     height: 100vh;
     width: 100vw;
 }
-
+/* Main */
 main{
     width: 60%;
     height: auto;
@@ -41,6 +41,7 @@ h1{
     font-size: var(--titleSize)
 }
 
+/* Navigation */
 nav{
     right: 30px;
     position: absolute;
@@ -57,6 +58,8 @@ nav{
 #removeTasks:hover, #addInput:hover{
     transform: scale(1.2);
 }
+
+/* Tasks List */
 
 #list {
     display: flex;
@@ -102,3 +105,5 @@ svg{
 .delete{
     display: none;
 }
+
+

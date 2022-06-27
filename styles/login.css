@@ -1,0 +1,50 @@
+:root{
+    --titleSize: 40px;
+    --contentSize: 20px;
+
+    --paddingMain: 5%;
+    --paddingList: 5% 5% 5% 0%;
+    --paddingTask: 30px;
+    --paddingtext: 10px;
+}
+
+/* Global */
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style-type: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D3D7DF;
+    height: 100vh;
+    width: 100vw;
+}
+
+main{
+    height: 50%;
+    width: 80%;
+    display: flex;
+    
+}
+
+.infos{
+    width: 50%;
+    background-image: url(../images/illustration.jpg);
+    background-size: cover;
+    background-position: bottom center;
+}
+
+.singUp{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+
+}
