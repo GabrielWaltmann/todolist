@@ -10,27 +10,53 @@
 </head>
 <body>
     <main>
-        <section class="infos">
+        <section class="ilustrationArea">
+
+
+            <img src="images/todo.png" draggable="false" alt="to do list Ilustration">
+
+            <h3>
+                To Do List by 
+                <a href="https://www.linkedin.com/in/gabrielwaltmann/">Gabriel Waltmann</a>
+            </h3>
+
+
         </section>
 
-        <section class="singUp">
+        <section class="loginArea">
 
-            <h1>Login</h1>
+            <h1>login</h1>
 
-            <span>E-mail</span>
-            <input type="email" name="email" id="inputEmail">
+            <input type="email" name="email" id="inputEmail" placeholder="E-mail">
 
-            <span>Password</span>
-            <input type="password" name="password" id="password">
+            <div class="password">
+                <input type="password" name="password" id="password" placeholder="Password">
+
+                <img src="images/eye.svg" alt="hide password" class="eye">
+            </div>
 
             
+            <div class="buttons">
+                <button id="login">login</button>
+                <button id="register">Register</button>
+            </div>
 
-            <input type="submit" value="Sing Up">
 
-            <a href="todolist.html">Go to Tasks List</a>
+            <p>login with</p>
+            <nav id="loginIcons">
+
+
+                <ion-icon name="logo-google" id="Buttongoogle"></ion-icon>
+            </nav>
 
         </section>
+
+        
     </main>
 </body>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+<script src="login.js" type="module"></script>
 
 </html>

@@ -1,50 +1,164 @@
-:root{
-    --titleSize: 40px;
-    --contentSize: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;1,600&display=swap');
 
-    --paddingMain: 5%;
-    --paddingList: 5% 5% 5% 0%;
-    --paddingTask: 30px;
-    --paddingtext: 10px;
+:root{
+    --widthPattern: 80%;
+    --heigthPattern: 70%;
+    --boxShadow: 0px 0px 30px 0px #00000090;
+    --lightColor: #38385C;
+    --blackColor: #0D0E2A;
+    --grayLigthColor: #EEEDEF;
+    --grayColor: #a0a0a0;
+    --fontSizeButton: 18px;
+    --fontSizeTitle: 35px;
+    --fontSizeInput: 18px;
 }
 
 /* Global */
 *{
+    color: white;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     text-decoration: none;
     list-style-type: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #D3D7DF;
+    background-image: url(../images/waves.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vh;
     width: 100vw;
 }
 
+
+
 main{
-    height: 50%;
-    width: 80%;
+    height: var(--heigthPattern);
+    width: var(--widthPattern);
     display: flex;
-    
+    box-shadow: var(--boxShadow);
+    border-radius: 100px !important;
 }
 
-.infos{
+h1{
+    font-size: var(--fontSizeTitle);
+    text-align: center;
+}
+
+input{
+    width: var(--widthPattern);
+    background-color: white;
+    border: none;
+    padding: 10px 10px 10px 15px;
+    color: black;
+    outline: none;
+    border-radius: 5px;
+}
+
+
+.ilustrationArea{
     width: 50%;
-    background-image: url(../images/illustration.jpg);
-    background-size: cover;
-    background-position: bottom center;
+    background-color: var(--blackColor);
+    font-size: var(--fontSizeInput);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.singUp{
+.ilustrationArea h3{
+    text-align: center;
+    font-size: var(--fontSizeInput);
+    width: 80%;
+}
+
+.ilustrationArea img{
+    width: 100%;
+    height: auto;
+}
+
+.createAccoutArea, .loginArea{
+    background-color: var(--lightColor);
     display: flex;
     flex-direction: column;
     width: 50%;
     height: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.password{
+    width: var(--widthPattern);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password input{
+    width: 100%;
+}
+
+.eye{
+    height: 20px;
+    width: 20px;
+    right: 10px;
+    display: flex;
+    position: absolute;
+    color: black;
+    cursor: pointer;
 
 }
+
+.buttons{
+    display: flex;
+    width: var(--widthPattern);
+    justify-content: space-around;
+}
+
+button{
+    height: 50px;
+    padding: 10px;
+    width: 40%;
+    border-radius: 15px;
+    border: none;
+    box-shadow: var(--boxShadow);
+    background-color: var(--blackColor);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    transition: .5s;
+    font-size: var(--fontSizeButton);
+    text-align: center;
+}
+
+#loginIcons{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+#Buttongoogle,#ButtonEmail{
+    height: 40px;
+    width: 40px;
+    transition: .5s;
+}
+
+button:hover, #Buttongoogle:hover, #ButtonEmail:hover{
+    transform: scale(1.1);
+    cursor:pointer;
+
+}
+

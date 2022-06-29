@@ -2,23 +2,18 @@ import {addTaskToFirebase, removeTaskFromFirebase,} from "./firebase.js";
 
 export const list = document.querySelector("#list")
 
-const container = document.querySelector("main")
-
-const SVGchecked = "images/checked.svg"
-
-const SVGcheck = "images/check.svg"
-
 const removeTasks = document.querySelector("#removeTasks")
 
 const addInput = document.querySelector("#addInput")
+
 
 addInput.addEventListener("click", createInput)
 
 removeTasks.addEventListener("click", addTrashs)
 
+
 export function refreshScreen(object){
      list.innerHTML = ""
-
 
     object.task.forEach(task =>{
         if(task.status == false){
@@ -74,6 +69,10 @@ function removeTask(trash){
 }
 
 function isChecked(element){
+    const SVGchecked = "images/checked.svg"
+
+    const SVGcheck = "images/check.svg"
+
     if(element[1].src.indexOf(SVGchecked) == -1){
         return false
     }else{
@@ -123,3 +122,7 @@ function inputHasValue(value){
         addTaskToFirebase(value, false)
     }
 }
+
+
+
+    
