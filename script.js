@@ -1,3 +1,5 @@
+import { connectionState } from "./login.js"
+
 import {addTaskToFirebase, removeTaskFromFirebase,} from "./firebase.js";
 
 export const list = document.querySelector("#list")
@@ -6,11 +8,17 @@ const removeTasks = document.querySelector("#removeTasks")
 
 const addInput = document.querySelector("#addInput")
 
-
 addInput.addEventListener("click", createInput)
 
 removeTasks.addEventListener("click", addTrashs)
 
+window.onload = (event) => {
+    try{
+        connectionState()
+    }catch{console.log
+    }
+    
+}
 
 export function refreshScreen(object){
      list.innerHTML = ""
@@ -123,6 +131,3 @@ function inputHasValue(value){
     }
 }
 
-
-
-    

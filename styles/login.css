@@ -53,6 +53,7 @@ h1{
 }
 
 input{
+    text-transform: none;
     width: var(--widthPattern);
     background-color: white;
     border: none;

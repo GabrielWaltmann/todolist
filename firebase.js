@@ -4,6 +4,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase
 
 import { getFirestore, collection, getDocs, arrayRemove, setDoc, doc, arrayUnion, onSnapshot, query,where} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
 
+
 export let tasks = []
 
 const firebaseConfig = {
@@ -39,3 +40,4 @@ const updateOnFirebase = onSnapshot(collection(db, "todo"), (doc) => {
     refreshScreen(element.data())
   });
 })
+
