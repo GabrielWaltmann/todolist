@@ -8,9 +8,15 @@ const removeTasks = document.querySelector("#removeTasks")
 
 const addInput = document.querySelector("#addInput")
 
+const SVGchecked = "images/checked.svg"
+
+const SVGcheck = "images/check.svg"
+
+
 addInput.addEventListener("click", createInput)
 
 removeTasks.addEventListener("click", addTrashs)
+
 
 window.onload = (event) => {
     try{
@@ -45,6 +51,28 @@ export function refreshScreen(object){
                             </li>`
         }
     })
+
+    
+    let tasks = [...list.children]
+
+    tasks.forEach(task =>{
+        (task.children[1]).addEventListener("click",()=>{
+            changeStatus(task)
+        })
+    })
+}
+
+function changeStatus(element){
+    if(isChecked(element.children) == false){
+        let text = element.children[2].innerHTML
+        removeTaskFromFirebase(text, false)
+        addTaskToFirebase(text, true) 
+    }else if(isChecked(element.children) == true){
+        let text = element.children[2].innerHTML
+        removeTaskFromFirebase(text, true)
+        addTaskToFirebase(text, false) 
+    }
+    
 }
 
 function addTrashs(){
@@ -77,9 +105,7 @@ function removeTask(trash){
 }
 
 function isChecked(element){
-    const SVGchecked = "images/checked.svg"
 
-    const SVGcheck = "images/check.svg"
 
     if(element[1].src.indexOf(SVGchecked) == -1){
         return false

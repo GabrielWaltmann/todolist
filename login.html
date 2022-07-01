@@ -10,45 +10,60 @@
 </head>
 <body>
     <main>
-        <section class="ilustrationArea">
+        <section class="registerArea">
+
+            <h1>Registrar-se</h1>
 
 
-            <img src="images/todo.png" draggable="false" alt="to do list Ilustration">
-
-            <h3>
-                To Do List by 
-                <a href="https://www.linkedin.com/in/gabrielwaltmann/">Gabriel Waltmann</a>
-            </h3>
-
-
-        </section>
-
-        <section class="loginArea">
-
-            <h1>login</h1>
-
-            <input type="email" name="email" id="inputEmail" placeholder="E-mail">
+            <input type="email" name="email" class="inputEmail" placeholder="E-mail">
 
             <div class="password">
-                <input type="password" name="password" id="inputPassword" placeholder="Password">
+                <input type="password" name="password" class="inputPassword" placeholder="Password">
 
                 <img src="images/eye.svg" alt="hide password" class="eye">
             </div>
 
             
-            <div class="buttons">
-                <button id="Submitlogin">login</button>
-                <button id="register">Register</button>
-            </div>
+            <button class="SubmitRegister">Registrar-se</button>
 
-            <p>login with</p>
-            <nav id="loginIcons">
+            <p>ou continue com o</p>
 
-
-                <ion-icon name="logo-google" id="Buttongoogle"></ion-icon>
+            <nav class="loginIcons">
+                <ion-icon name="logo-google" class="Buttongoogle"></ion-icon>
             </nav>
 
         </section>
+
+        <section class="singInArea">
+
+            <h1>Entrar</h1>
+
+
+            <input type="email" name="email" class="inputEmail" placeholder="E-mail">
+
+            <div class="password">
+                <input type="password" name="password" class="inputPassword" placeholder="Password">
+
+                <img src="images/eye.svg" alt="hide password" class="eye">
+            </div>
+
+            
+            <button class="Submitlogin">Entrar</button>
+
+            <p>ou continue com o</p>
+
+            <nav class="loginIcons">
+                <ion-icon name="logo-google" class="Buttongoogle"></ion-icon>
+            </nav>
+
+        </section>
+
+        <section class="blocksingIn">
+            <img src="images/todo.png" alt="to-do-list">
+            <h3>Já possui uma conta?</h3>
+            <button class="haveAccount">Fazer Login</button>
+        </section>
+
 
         
     </main>

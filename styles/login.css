@@ -3,14 +3,15 @@
 :root{
     --widthPattern: 80%;
     --heigthPattern: 70%;
-    --boxShadow: 0px 0px 30px 0px #00000090;
-    --lightColor: #38385C;
-    --blackColor: #0D0E2A;
+    --boxShadow:0px 0px 10px 3px #0cbb351f;
+    --lightColor: #2C3137;
+    --blackColor: #1D212A;
     --grayLigthColor: #EEEDEF;
     --grayColor: #a0a0a0;
     --fontSizeButton: 18px;
     --fontSizeTitle: 35px;
     --fontSizeInput: 18px;
+    --greenColor: #0CBB34;
 }
 
 /* Global */
@@ -45,6 +46,7 @@ main{
     display: flex;
     box-shadow: var(--boxShadow);
     border-radius: 100px !important;
+    position: relative;
 }
 
 h1{
@@ -64,7 +66,7 @@ input{
 }
 
 
-.ilustrationArea{
+.registerArea{
     width: 50%;
     background-color: var(--blackColor);
     font-size: var(--fontSizeInput);
@@ -74,18 +76,13 @@ input{
     flex-direction: column;
 }
 
-.ilustrationArea h3{
+.registerArea h3{
     text-align: center;
     font-size: var(--fontSizeInput);
     width: 80%;
 }
 
-.ilustrationArea img{
-    width: 100%;
-    height: auto;
-}
-
-.createAccoutArea, .loginArea{
+.registerArea, .singInArea, .blockregister, .blocksingIn{
     background-color: var(--lightColor);
     display: flex;
     flex-direction: column;
@@ -125,13 +122,13 @@ input{
 }
 
 button{
-    height: 50px;
-    padding: 10px;
+    height: 40px;
+    padding: 10px 5px;
     width: 40%;
-    border-radius: 15px;
+    border-radius: 10px;
     border: none;
     box-shadow: var(--boxShadow);
-    background-color: var(--blackColor);
+    background-color: var(--greenColor);
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -142,24 +139,129 @@ button{
     text-align: center;
 }
 
-#loginIcons{
+p{
+    font-size: var(--fontSizeInput);
+}
+.loginIcons{
     display: flex;
-    flex-direction: row;
-    gap: 30px;
+    flex-direction: column;
     width: 50%;
     align-items: center;
     justify-content: center;
 }
 
-#Buttongoogle,#ButtonEmail{
-    height: 40px;
-    width: 40px;
+.Buttongoogle{
+    background-color: var(--greenColor);
+    border-radius: 50%;
+    padding: 5%;
+    height: 30px;
+    width: 30px;
     transition: .5s;
 }
 
-button:hover, #Buttongoogle:hover, #ButtonEmail:hover{
-    transform: scale(1.1);
+button:hover{
+    transform: scale(1.05);
     cursor:pointer;
-
 }
 
+.Buttongoogle:hover{
+    cursor: pointer;
+}
+
+.blockregister{
+    position: absolute;
+    display: none;
+}
+
+.blocksingIn{
+    position: absolute;
+}
+
+.toRight{
+    animation-name: moveToRigth;
+    animation-duration: .3s;
+    animation-fill-mode: forwards
+}
+
+.toLeft{
+    animation-name: moveToLeft;
+    animation-duration: .3s;
+    animation-fill-mode: forwards
+}
+
+.blocksingIn img {
+    width: 100%;
+    height: auto;
+}
+
+@keyframes moveToRigth{
+    0%{
+        right: 50%;
+    }
+    10%{
+        right: 45%
+    }
+    20%{
+        right: 40%
+    }
+    30%{
+        right: 35%
+    }
+    40%{
+        right: 30%
+    }
+    50%{
+        right: 25%
+    }
+    60%{
+        right: 20%
+    }
+    70%{
+        right: 15%
+    }
+    80%{
+        right: 10%
+    }
+    90%{
+        right: 5%
+    }
+    100%{
+        right: 0%
+    }
+}
+
+@keyframes moveToLeft{
+    0%{
+        left: 50%;
+    }
+    10%{
+        left: 45%
+    }
+    20%{
+        left: 40%
+    }
+    30%{
+        left: 35%
+    }
+    40%{
+        left: 30%
+    }
+    50%{
+        left: 25%
+    }
+    60%{
+        left: 20%
+    }
+    70%{
+        left: 15%
+    }
+    80%{
+        left: 10%
+    }
+    90%{
+        left: 5%
+    }
+    100%{
+        left: 0%
+    }
+}

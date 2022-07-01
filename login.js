@@ -23,6 +23,11 @@ const eye = document.querySelector(".eye")
 
 const auth = getAuth(app);
 
+document.querySelector(".haveAccount").addEventListener("click", (event)=>{
+    changeArea(event)
+
+})
+
 hidePassword() 
 
 try{login()}catch{}
@@ -99,4 +104,17 @@ function hidePassword(){
         })
     }catch(error){}
 
+}
+
+function changeArea(event){
+    let block = document.querySelector(".blocksingIn")
+    if(block.className.indexOf("toRight") == -1){
+        block.className = ("blocksingIn toRight")
+        block.children[1].innerHTML = "Já possui uma conta?"
+        block.children[2].innerHTML = "fazer login"
+    }else{
+        block.children[1].innerHTML = "primeiro acesso?"
+        block.children[2].innerHTML = "Criar conta"
+        block.className = ("blocksingIn toLeft")       
+    }
 }
