@@ -82,7 +82,7 @@ input{
     width: 80%;
 }
 
-.registerArea, .singInArea, .blockregister, .blocksingIn{
+.registerArea, .singInArea, .blockregister, .blockArea{
     background-color: var(--lightColor);
     display: flex;
     flex-direction: column;
@@ -173,23 +173,23 @@ button:hover{
     display: none;
 }
 
-.blocksingIn{
+.blockArea{
     position: absolute;
 }
 
 .toRight{
     animation-name: moveToRigth;
-    animation-duration: .3s;
+    animation-duration: .2s;
     animation-fill-mode: forwards
 }
 
 .toLeft{
     animation-name: moveToLeft;
-    animation-duration: .3s;
+    animation-duration: .2s;
     animation-fill-mode: forwards
 }
 
-.blocksingIn img {
+.blockArea img {
     width: 100%;
     height: auto;
 }

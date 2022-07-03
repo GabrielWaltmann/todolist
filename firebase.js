@@ -1,9 +1,10 @@
-import {refreshScreen} from "./script.js";
+import {refreshScreen} from "./script.js"
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
 
-import { getFirestore, collection, getDocs, arrayRemove, setDoc, doc, arrayUnion, onSnapshot, query,where} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
+import { getFirestore, collection,  arrayRemove, setDoc, doc, arrayUnion, onSnapshot, updateDoc} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
 
+import { onAuthStateChanged, getAuth } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
 
 export let tasks = []
 
@@ -21,23 +22,29 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export async function addTaskToFirebase(info, isChecked) {
-  console.log(info, isChecked) 
-  await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
-    task: arrayUnion({data: info, status: isChecked}),
+const auth = getAuth(app);
+
+export async function addTaskToFirebase(info, isChecked, email) {
+  console.log(info, isChecked, email)
+  await setDoc(doc(db, "users", email), {
+    email: email,
+      tasks: arrayUnion({data: info, status: isChecked}),
+    },{merge: true})
+}
+
+export async function removeTaskFromFirebase(info, checked, email) { 
+  console.log(info, checked, email)
+  await setDoc(doc(db, "users", email), {
+    email: email,
+    tasks: arrayRemove({data: info, status: checked}),
   },{merge: true})
 }
 
-export async function removeTaskFromFirebase(info, checked) { 
-  console.log(info, checked)
-  await setDoc(doc(db, "todo", "Q41vEBv2IFoVb7uTNcOl"), {
-    task: arrayRemove({data: info, status: checked}),
-  },{merge: true})
-}
-
-const updateOnFirebase = onSnapshot(collection(db, "todo"), (doc) => {
+const updateOnFirebase = onSnapshot(collection(db, "users"), (doc) => {
   doc.forEach(element => {
-    refreshScreen(element.data())
+    onAuthStateChanged(auth, (user) => {
+      refreshScreen(element.data(), user) })
+    
   });
 })
 
