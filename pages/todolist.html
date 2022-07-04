@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
-    <link rel="stylesheet" href="styles/todolist.css">
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../styles/todolist.css">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -14,15 +14,17 @@
         <nav>
             <ion-icon name="trash-outline" id="removeTasks"></ion-icon>
             <ion-icon name="add-outline" id="addInput"></ion-icon>
+            <ion-icon name="log-out-outline" class="ButtonlogOut"></ion-icon>
         </nav>
         <h1>To Do List</h1>
         <ul id="list"></ul>
     </main>
+
 </body>
 
-<script src="firebase.js" type="module"></script>
+<script src="../scripts/firebaseConfig.js" type="module"></script>
 
-<script src="script.js" type="module"></script>
+<script src="../scripts/todolist.js" type="module"></script>
 
 
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

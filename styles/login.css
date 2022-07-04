@@ -28,6 +28,7 @@
 }
 
 body{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,6 +194,8 @@ button:hover{
     width: 100%;
     height: auto;
 }
+
+
 
 @keyframes moveToRigth{
     0%{

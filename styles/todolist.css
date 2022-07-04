@@ -45,17 +45,18 @@ h1{
 nav{
     right: 30px;
     position: absolute;
-}
+    display: flex;
+    gap: 10px;}
 
-#removeTasks, #addInput{
+#removeTasks, #addInput, .ButtonlogOut{
     transform: scale(1.1);
     cursor: pointer;
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     transition: .4s;
 }
 
-#removeTasks:hover, #addInput:hover{
+#removeTasks:hover, #addInput:hover, .ButtonlogOut:hover{
     transform: scale(1.2);
 }
 
