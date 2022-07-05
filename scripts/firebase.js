@@ -1,11 +1,12 @@
-import {refreshScreen} from "../script.js"
+import { app } from "../scripts/firebaseConfig.js"
+import { refreshScreen } from "../scripts/todolist.js"
 
-import { getFirestore, collection,  arrayRemove, setDoc, doc, arrayUnion, onSnapshot, updateDoc} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
+import { getFirestore, collection,  arrayRemove, setDoc, doc, arrayUnion, onSnapshot} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
 
 import { onAuthStateChanged, getAuth } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
 
-export let tasks = []
 
+const db = getFirestore(app);
 
 export async function addTaskToFirebase(info, isChecked, email) {
   console.log(info, isChecked, email)
@@ -24,10 +25,12 @@ export async function removeTaskFromFirebase(info, checked, email) {
 }
 
 const updateOnFirebase = onSnapshot(collection(db, "users"), (doc) => {
+  const auth = getAuth(app);
+
   doc.forEach(element => {
     onAuthStateChanged(auth, (user) => {
-      refreshScreen(element.data(), user) })
-    
+        refreshScreen(element.data(), user) 
+      })
   });
 })
 

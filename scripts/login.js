@@ -1,14 +1,12 @@
 import { app } from "../scripts/firebaseConfig.js"
 
-import { getFirestore, collection, addDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js";
-
 import { signInWithEmailAndPassword, getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signOut, signInWithPopup} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
   
-const db = getFirestore(app);
-
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
+
+export let userEmail = undefined
 
 window.onload = event => {
     islogged()
@@ -18,31 +16,20 @@ window.onload = event => {
 }
 
 function eventListeners(){
-
         const loginbutton = document.querySelector(".Submitlogin")
-
         const registerButton = document.querySelector(".submitRegister")
-
         const Buttongoogle = [...document.querySelectorAll(".Buttongoogle")]
 
         registerButton.addEventListener("click", newUserWithEmail)
-
         loginbutton.addEventListener("click", loginWithEmail)
-        
         Buttongoogle.forEach( button =>{button.addEventListener("click", loginWithGoogle)})
 
 }
 
 function newUserWithEmail(){
-
         let email = document.querySelector(".inputEmailOfRegisterArea")
-
         let password = document.querySelector(".inputPasswordOfRegisterArea")
-        
         if(email != "" && password != ""){
-
-            console.log(email, password)
-            
             
             createUserWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
@@ -58,11 +45,8 @@ function newUserWithEmail(){
 }
     
 function loginWithEmail(){
-
     let email = document.querySelector(".emailOfSingInArea")
-
     let password = document.querySelector(".passwordOfSingInArea")
-
     signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
         window.location.href = ('todolist.html')
@@ -70,18 +54,15 @@ function loginWithEmail(){
     .catch((error) => {
         alert(`Não foi possivel encontrar o usuário! Por favor tente novamente`)
     });
-
 }
 
 export function islogged(){
     getAuth().onAuthStateChanged(user => {
-        if(window.location.href.indexOf("login.html") != -1 && user) { 
+         if(window.location.href.indexOf("login.html") == -1 && user && window.location.href.indexOf("todolist.html") == -1) { 
             window.location.href = ('todolist.html')
-        } else if(!user && window.location.href.indexOf("login.html") != -1){
-
+        } else if(!user && window.location.href.indexOf("login.html") == -1){
             window.location.href = ('login.html')
-
-        }
+        } 
     })
 
 }
@@ -104,17 +85,16 @@ function changeArea(){
 }
 
 function hidePassword(){
-    let eyes = document.getElementsByClassName("eye")
-    eyes = [...eyes]
-    eyes.forEach(eye =>{
+    let eyes = [...document.getElementsByClassName("eye")]
+     eyes.forEach(eye =>{
         eye.addEventListener("click", event =>{
             let element = event.target
             let input = element.parentElement.children[0]
             if(element.src.indexOf("eye.svg") != -1){
-                element.src = "images/eyeOff.svg"
+                element.src = "../images/eyeOff.svg"
                 input.setAttribute("type", "text")
             }else {
-                element.src = "images/eye.svg"
+                element.src = "../images/eye.svg"
                 input.setAttribute("type", "password")
             }        
         })
@@ -123,32 +103,19 @@ function hidePassword(){
 }
 
 function loginWithGoogle(){
-
-    let criar = true
-
     signInWithPopup(auth, provider)
     .then( (result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const email = result.user.email;
-        
-        onSnapshot(collection(db, "users"), (doc) => {
-            doc.forEach(element => {
-                if(element.data().email == email){
-                    criar = false
-                }
-            })
-            if(criar == true){
-                newArray(email)
-                console.log(" criou")
-            }else{
-                console.log("não criou")
-                
-            }
-        })
-        
         window.location.href = ('todolist.html')
     })
     .catch((error) => {
         console.log(error)
     });
+}
+
+export function logOut(){
+    signOut(auth).then(() => {
+        window.location.href = ('login.html')
+    }).catch((error) => {
+        console.log(error)
+    }); 
 }
