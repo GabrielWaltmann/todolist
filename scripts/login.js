@@ -9,10 +9,17 @@ const provider = new GoogleAuthProvider();
 export let userEmail = undefined
 
 window.onload = event => {
+
+    let width = screen.width
+    if(width <= 600){
+        changeAreaOfMobile(width)
+    }
+
     islogged()
     changeArea()
     hidePassword()
     eventListeners()
+
 }
 
 function eventListeners(){
@@ -106,7 +113,7 @@ function hidePassword(){
 
 }
 
-function loginWithGoogle(){
+function loginWithGoogle(e){
     signInWithPopup(auth, provider)
     .then( (result) => {
         window.location.href = ('todolist.html')
@@ -123,3 +130,53 @@ export function logOut(){
         console.log(error)
     }); 
 }
+
+function changeAreaOfMobile(width){
+    const signInArea = document.querySelector(".signInArea")
+    const registerArea = document.querySelector(".registerArea")
+    const blockArea = document.querySelector(".blockArea")
+    const changeButton = document.querySelector("main")
+    const main = document.querySelector("main")
+
+    addLoginOrRegisterMassage(signInArea, registerArea, blockArea)
+    
+}
+
+function changeToLoginAreaOrRegisterArea(event, registerArea, signInArea){
+    let p = event.target.parentElement
+    let area = p.parentElement
+    if(area.className == "registerArea"){
+        signInArea.style = "width: 100% !important;"
+        registerArea.style = "display: none !important;"
+    }else if(area.className == "signInArea"){
+        registerArea.style = "width: 100% !important;"
+        signInArea.style = "display: none !important;"
+    }
+}
+
+function addLoginOrRegisterMassage(signInArea, registerArea, blockArea){
+
+    if(registerArea.innerHTML.indexOf("changeButton") == -1){
+        registerArea.innerHTML += `<p>Já possui uma conta? <span class="changeButton">Fazer login</span></p>`
+    }
+
+    if(signInArea.innerHTML.indexOf("changeButton") == -1){
+        signInArea.innerHTML += `<p>não possui uma conta? <span class="changeButton">Fazer login</span></p>`
+
+        blockArea.style = "display: none;"
+
+        registerArea.style = "width: 100% !important;"
+        signInArea.style = "display: none !important;"
+    }
+
+    let spans = document.querySelectorAll(".changeButton")
+    spans = [...spans]
+    spans.forEach(span =>{
+        span.addEventListener("click", (event)=>{
+            changeToLoginAreaOrRegisterArea(event, registerArea, signInArea)
+        })
+    })
+
+
+}
+
