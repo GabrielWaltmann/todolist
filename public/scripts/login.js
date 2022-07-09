@@ -36,12 +36,8 @@ function newUserWithEmail(){
                 alert(`Conta com o email ${email.value} criado com sucesso! Agora faça login com seu email e senha`)
             })
             .catch((error) => {
-                if(Error == ("auth/email-already-in-use")){
-                alert(`Já existe uma conta com o email ${email.value}`)
-                }else{
-                    alert(`Por favor informar um email e senha valido!`)
-                }
                 console.log(error)
+
             });
     }else{
         alert(`Por favor informar um email e senha valido!`)
@@ -62,7 +58,7 @@ function loginWithEmail(){
 
 export function islogged(){
     getAuth().onAuthStateChanged(user => {
-         if(window.location.href.indexOf("index.html") == -1 && user && window.location.href.indexOf("todolist.html") == -1) { 
+         if(window.location.href.indexOf("index.html") != -1 && user && window.location.href.indexOf("todolist.html") == -1) { 
             window.location.href = ('todolist.html')
         } else if(!user && window.location.href.indexOf("index.html") == -1){
             window.location.href = ('index.html')
@@ -79,7 +75,7 @@ function changeArea(){
             if(block.className.indexOf("toRight") == -1){
                 block.className = ("blockArea toRight")
                 block.children[1].innerHTML = "Já possui uma conta?"
-                block.children[2].innerHTML = "Entrar"
+                block.children[2].innerHTML = "fazer login"
             }else{
                 block.children[1].innerHTML = "primeiro acesso?"
                 block.children[2].innerHTML = "Criar conta"

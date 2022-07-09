@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
 :root{
-    --widthPattern: 60%;
+    --widthPattern: 80%;
     --heigthPattern: 70%;
     --boxShadow:0px 0px 10px 3px #0cbb351f;
 
@@ -43,7 +43,7 @@ body{
 /* Main */
 main{
     height: var(--heigthPattern);
-    width: 50%;
+    width: var(--widthPattern);
     display: flex;
     box-shadow: var(--boxShadow);
     border-radius: 100px !important;
@@ -101,10 +101,6 @@ input::placeholder{
     color: var(--blackGray);
 }
 
-.blockArea h3{
-    font-size: 30px;
-}
-
 .registerArea, .signInArea, .blockregister, .blockArea{
     background-color: var(--white);
     color: var(--blackGray);
@@ -146,9 +142,9 @@ input::placeholder{
 }
 
 button{
-    height: 50px;
+    height: 40px;
     padding: 10px 5px;
-    width: 30%;
+    width: 40%;
     border-radius: 10px;
     border: 2px solid var(--white);
     background-color: var(--blue);
@@ -283,38 +279,4 @@ button:hover{
     100%{
         left: 0%
     }
-}
-
-
-/* response */
-
-@media only screen and (max-width: 1020px) {
-    .blockArea h3, button, p, input{
-        font-size: 20px;
-    }
-
-    h1{
-        font-size: 40px;
-    }
-
-    .Buttongoogle{
-        height: 40px;
-        width: 40px;
-    }
-
-    main{
-        width: 70%;
-    }
-
-    button{
-        width: 50%;
-    }
-}
-
-@media only screen and (max-width: 770px) {
-    .blockArea{
-        display: none;
-    }
-
-    
 }

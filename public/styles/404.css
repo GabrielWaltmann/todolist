@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+:root{
+    --titleSize: 40px;
+    --contentSize: 20px;
+    --paddingMain: 5% 5% 5% 10%;
+    --paddingTask: 30px;
+    --paddingtext: 10px;
+
+    --widthPattern: 80%;
+    --heigthPattern: 70%;
+    --boxShadow:0px 0px 10px 3px #0cbb351f;
+
+    --grayLigth: #EDEDED;
+    --blue: #2B56FF;
+    --gray: #555656;
+    --white: #FFFFFF;
+    --blackGray: #1D212A;
+
+    --fontTitle: 'Archivo Black', sans-serif;
+    --fontGlobal: 'Roboto Condensed', sans-serif;
+    --fontSizeGlobal: 30px;
+    --fontSizeTitle: 45px;
+    --fontSizeP: 20px;
+}
+
+/* Global */
+*{
+    font-family: var(--fontGlobal);
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style-type: none;
+    font-family: var(--fontGlobal);
+}
+
+body{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--grayLigth);
+    height: 100vh;
+    width: 100vw;
+}
+
+main{
+    width: 60vw;
+    height: 50vh;
+    background-color: var(--white);
+    padding: var(--paddingMain);
+    display: flex;
+    justify-content: center;
+    gap: 30px;    
+    flex-direction: column;
+}
+
+h2{
+    font-size: var(--fontSizeGlobal);
+}
+
+h1{
+    width: 100%;
+    font-size: var(--fontSizeTitle);
+
+}
+
+p{
+    font-size: var(--fontSizeP);
+}
