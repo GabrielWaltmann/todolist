@@ -43,7 +43,7 @@ body{
 /* Main */
 main{
     height: var(--heigthPattern);
-    width: var(--widthPattern);
+    width: 80vw;
     display: flex;
     box-shadow: var(--boxShadow);
     border-radius: 100px !important;
@@ -92,7 +92,17 @@ input::placeholder{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
 }
+
+
+
+span{
+    color: var(--blackGray);
+    text-decoration: underline;
+}
+
+
 
 .registerArea h3, .signInArea h3{
     text-align: center;
@@ -101,7 +111,17 @@ input::placeholder{
     color: var(--blackGray);
 }
 
-.registerArea, .signInArea, .blockregister, .blockArea{
+.registerArea p, .signInArea p{
+    width: var(--widthPattern);
+    text-align: center;
+
+}
+
+.blockArea h3{
+    font-size: 30px;
+}
+
+.registerArea, .signInArea, .blockArea{
     background-color: var(--white);
     color: var(--blackGray);
     display: flex;
@@ -142,7 +162,7 @@ input::placeholder{
 }
 
 button{
-    height: 40px;
+    height: 50px;
     padding: 10px 5px;
     width: 40%;
     border-radius: 10px;

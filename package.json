@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "firebase": "^9.9.0",
+    "hosting": "^0.0.2"
+  }
+}
