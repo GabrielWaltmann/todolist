@@ -3,12 +3,12 @@
 <h2 >Sobre o projeto</h2>
 <p>To do List é uma aplicação web com o objetivo de o usuário registrar-se, fazer login e através do banco de dados do firestore, adicionar e remover tarefas de uma lista.</p>
 <p>O objetivo desse projeto é a pratica de funções em Javascript puro e fazer a integração de dados entre o projeto e o firebase</p>
-<hr><br>
+<hr>
 
 <h2 >📸 Demostração</h2>
 <img src="./readme/desktopDemo.gif" alt="demo-desktop-web" height="425">
 <img src="./readme/mobileDemo.gif" alt="demo-mobile-web" height="425">
-<hr><br>
+<hr>
 
 ### 🛠 Tecnologias
 <p>As seguintes ferramentas foram usadas na construção do projeto:</p>
@@ -17,7 +17,7 @@
 - npm<br>
 - CSS<br>
 - Firebase
-<hr><br>
+<hr>
 
 ### Recursos
 - [x] Pagina de login
@@ -27,10 +27,10 @@
 - [X] Botão adicionar Tarefas
 - [X] Botão sair da conta
 - [X] Loyalt responsivo para celular
-- [  ] Correção de bugs do CSS
+- [ ] Correção de bugs do CSS
 - [X] read.md
 - [X] deploy no firebase
-<hr><br>
+<hr>
 
 Para ver o App hospedado no Firebase, clique aqui: <a href="https://to-do-list-gabriel.firebaseapp.com">To do list</a>
 
